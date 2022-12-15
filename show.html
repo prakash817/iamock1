@@ -94,12 +94,10 @@
                 let confirmData = JSON.parse(localStorage.getItem("confirm")) || [] ;
                 console.log(confirmData , "cconfirm")
 
-                let al = confirmData.filter(e=>e.id == ele.id);
-
-                if(al.length == 0){
+                let al = confirmData.find(e=>e.id == ele.id);
+                    console.log(al ,"check")
+                if(!al){
                     confirmData.push(ele)
-                
-
                 localStorage.setItem("confirm" , JSON.stringify(confirmData)) ;
 
                 fetch("https://mockapi-yx28.onrender.com/book/"+ele.id , {
