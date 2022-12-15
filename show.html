@@ -80,25 +80,28 @@
             date.innerText="Date Of Borrow : "+new Date().toLocaleDateString()
 
             let cancel = document.createElement("button") ;
-            
-            
             cancel.innerText = "Cancel"
             cancel.setAttribute("id","c")
             cancel.addEventListener("click" , ()=>{
                 location.href = "user.html"
             })
             
+
             let confirm = document.createElement("button") ;
             confirm.innerText = "Confirm"
+
             confirm.addEventListener("click" , ()=>{
                 let confirmData = JSON.parse(localStorage.getItem("confirm")) || [] ;
                 console.log(confirmData , "cconfirm")
-                let al = confirmData.filter(e=>e.name == ele.name);
+
+                let al = confirmData.filter(e=>e.id == ele.id);
+
                 if(al.length == 0){
                     confirmData.push(ele)
                 }else{
                     alert("Already Added")
                 }
+
                 localStorage.setItem("confirm" , JSON.stringify(confirmData)) ;
 
                 fetch("https://mockapi-yx28.onrender.com/book/"+ele.id , {
@@ -106,7 +109,7 @@
                     headers:{'Content-Type': 'application/json'},
                     body:JSON.stringify({"borrowed":true})
                 })
-                    .then(token=> alert("posted succesfully"))
+                    .then(token=> alert("updated status as true succesfully"))
                     .catch(err=>console.log(err))
 
                 location.href = "user.html"
