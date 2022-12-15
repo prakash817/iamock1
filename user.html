@@ -20,28 +20,47 @@
             border: 1px solid red;
             height: 300px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
         }
         img{
             height: 100%;
+            width: 50%;
         }
     </style>
 </head>
 <body>
-    i am user
+    <div  id="filterDiv">
+        <select name="" id="filter">
+            <option value="">filter</option>
+            <option value="science">Science</option>
+            <option value="fiction">Fiction</option>
+            <option value="history">History</option>
+            <option value="tech">Tech</option>
+            <option value="business">Business</option>
+        </select>
+    </div>
+    <div  id="sortDiv">
+        <select name="" id="sort">
+            <option value="">sort</option>
+            <option value="l2h">Low to High</option>
+            <option value="fiction">High To Low</option>
+            
+        </select>
+    </div>
     <div id="conatiner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
     </div>
 </body>
 </html>
 
 <script>
+    let allBookData;
     fetch("http://localhost:3000/book")
     .then(res =>res.json())
-    .then(data=>displayData(data))
+    .then(data=>{
+            allBookData = data
+            displayData(data)
+        }
+    )
     .catch(err=>console.log(err)) ;
 
     function displayData(data){
@@ -63,15 +82,15 @@
             let borrow = document.createElement("button") ;
 
             img.src =ele.image_url,
-            name.innerText =ele.book_name,
-            author.innerText =ele.author,
-            genre.innerText =ele.genre,
-            edition.innerText =ele.edition,
-            publisher.innerText =ele.publisher,
-            cost.innerText =ele.cost
+            name.innerText =+ele.book_name,
+            author.innerText = "author:"+ele.author,
+            genre.innerText = "Genre:"+ele.genre,
+            edition.innerText ="Edition:"+ ele.edition,
+            publisher.innerText = "Edition:" + ele.publisher,
+            cost.innerText ="Cost:"+ele.cost
             borrow.innerText = "Borrow"
             borrow.addEventListener("click" , ()=>{
-                console.log("clicked boee")
+                
             })
 
             divIn.append(name,author,genre,edition,publisher,cost,borrow)
@@ -82,6 +101,30 @@
         })
 
     }
+
+
+    // filtering
+    document.getElementById("filter").addEventListener("change" , filter)
+    function filter(){
+        let val =  document.getElementById("filter").value
+        let filteredData = allBookData.filter(d=>d.genre == val );
+        displayData(filteredData)
+    }
+
+    // sorting
+    document.getElementById("sort").addEventListener("change" , sort)
+    function sort(){
+        let val =  document.getElementById("sort").value ;
+        if(val == "l2h"){
+            let sortedData = allBookData.sort((a,b)=>a.cost-b.cost);
+            displayData(sortedData)
+        }else{
+            let sortedData = allBookData.sort((a,b)=>b.cost-a.cost);
+            displayData(sortedData)
+
+        }
+    }
+    
 </script>
 <!-- image_url
 book_name
