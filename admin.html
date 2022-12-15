@@ -277,6 +277,8 @@ function displayData(data){
                         method:"DELETE"
                     }).then(res=> alert("Deleted succesfully"))
                         .catch(err=>console.log(err))
+
+                        location.reload()
             })
             tr.append(sn,coverImage, name,author,genre,edition,publisher,cost,edit,dlt)
             document.querySelector("tbody").append(tr) ;
