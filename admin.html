@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        form{
+            width: 50%;
+            height: 300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            border: 1px solid red;
+
+        }
+        input,select{
+            width: 80%;
+            padding: 10px;
+        }
+
+        table{
+            width: 80%;
+            margin: auto;
+            border: 1px solid red;
+            border-collapse:collapse;
+        }
+        thead{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>welcome to the admin page
+    </h1>
+
+    <form action="" id="form">
+        <input type="text" placeholder="Enter name of book" name="name" >
+        <input type="text" placeholder="Enter name of book author" name="author" >
+            <select name="" id="genre">
+                <option value="science">Science</option>
+                <option value="fiction">Fiction</option>
+                <option value="history">History</option>
+                <option value="tech">Tech</option>
+                <option value="business">Business</option>
+            </select>
+
+            <select name="" id="edition">
+                <option value="">Edition</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+            </select>
+            <input type="text" name="" id="publisher" placeholder="enter publisher name">
+            <input type="number" name="" id="cost" placeholder="enter cost ">
+            <input type="submit" value="submit">
+        </form>
+
+        <!-- show data -->
+        <table>
+            <thead>
+              <tr>
+                <th>sNo</th>
+                <th>CoverImage</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Edition</th>
+                <th>Publisher</th>
+                <th>Cost</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Append your data here  -->
+              <tr>
+                <th>1</th>
+                <th>CoverImage</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Edition</th>
+                <th>Publisher</th>
+                <th>Cost</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </tbody>
+          </table>
+
+
+</body>
+</html>
+
+
+<script>
+
+let form = document.getElementById("form")
+form.addEventListener("submit",(e)=>{
+    e.preventDefault() ;
+    let newBook = {
+        "image_url": "https://m.media-amazon.com/images/I/5165He67NEL.jpg",
+        "book_name": form.name.value ,
+        "author": form.author.value,
+		"genre": document.getElementById("genre").value,
+		"edition": document.getElementById("edition").value,
+		"publisher": form.publisher.value,
+		"cost": form.cost.value,
+		"borrowed": false,
+
+    } 
+
+    fetch(" http://localhost:3000/book" , {
+        method:"POST",
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify(newBook)
+       })
+        .then(token=> alert("posted succesfully"))
+        .catch(err=>console.log(err))
+    console.log(newBook)
+})
+
+
+
+//fetching json data
+let data = [];
+function fetch(){
+    fetch(" http://localhost:3000/book" )
+    .then(res=>res,json())
+    .then(data=>{
+        data = data
+        displayData(data)
+        }
+    ) ;
+
+}
+
+// fetch()
+
+function displayData(data){
+    document.querySelector("tbody").innerHTML = "" ;
+
+    data.map(ele=>{
+        let tr = document.createElement("tr")
+    })
+}
+
+
+
+</script>
+
+<!-- - Book Cover Image (Use placeholder or dummy images)
+- Name of the book
+- Author of the book
+- Genre -  select tag (Science, Fiction, History, Tech, Business)
+- Edition -  select tag (2020, 2021, 2022)
+- Publisher
+- Cost -->
