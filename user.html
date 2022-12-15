@@ -90,14 +90,13 @@
             cost.innerText ="Cost:"+ele.cost
             borrow.innerText = "Borrow"
             borrow.addEventListener("click" , ()=>{
-                
+                localStorage.setItem("book" , JSON.stringify(ele));
+                location.href = "show.html"
             })
 
             divIn.append(name,author,genre,edition,publisher,cost,borrow)
             childDiv.append(img,divIn)
             document.getElementById("conatiner").append(childDiv)
-
-
         })
 
     }

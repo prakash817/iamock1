@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        table{
+            width: 80%;
+            margin: auto;
+            border: 1px solid red;
+            border-collapse:collapse;
+        }
+        thead{
+            border: 1px solid red;
+        }
+        img{
+            width: 50px;
+        }
+        tr{
+            margin: 5px 0;
+            border: 1px solid gray;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <table>
+        <thead>
+          <tr>
+            <th>sNo</th>
+            <th>CoverImage</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Edition</th>
+            <th>Publisher</th>
+            <th>Cost</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Append your data here  -->
+          <tr>
+            <th>1</th>
+            <th>CoverImage</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Edition</th>
+            <th>Publisher</th>
+            <th>Cost</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <img src="https://m.media-amazon.com/images/I/5165He67NEL.jpg" alt=""> -->
+</body>
+</html>
+<script>
+    let  allBook = JSON.parse(localStorage.getItem("confirm")) ;
+
+    displayData(allBook) ;
+
+    function displayData(data){
+    document.querySelector("tbody").innerHTML = "" ;
+
+    data.map(ele=>{
+        let tr = document.createElement("tr") 
+console.log(ele.image_url)
+
+
+        let sn = document.createElement("td") 
+        sn.innerText = ele.id;
+
+
+        let coverImage= document.createElement("img")
+        let name= document.createElement("td")
+        let author= document.createElement("td")
+        let genre= document.createElement("td")
+        let edition= document.createElement("td")
+        let publisher= document.createElement("td")
+        let cost= document.createElement("td")
+        let edit = document.createElement("td")
+        let dlt = document.createElement("td")
+
+        coverImage.src= ele.image_url,
+
+
+            name.innerText=ele.book_name,
+            author.innerText=ele.author,
+            genre.innerText=ele.genre,
+            edition.innerText=ele.edition,
+            publisher.innerText=ele.publisher,
+            cost.innerText=ele.cost
+            edit.innerText = "Edit" ;
+            edit.addEventListener("click" , ()=>{
+                console.log("edit")
+            })
+
+
+            dlt.innerText = "Delete"
+            dlt.addEventListener("click" , ()=>{
+                console.log("delete")
+                    fetch("http://localhost:3000/book/"+ele.id , {
+                        method:"DELETE"
+                    }).then(res=> alert("Deleted succesfully"))
+                        .catch(err=>console.log(err))
+            })
+            tr.append(sn,coverImage,name,author,genre,edition,publisher,cost,edit,dlt)
+            document.querySelector("tbody").append(tr) ;
+        
+
+    })
+}
+
+
+</script>

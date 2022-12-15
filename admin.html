@@ -34,6 +34,15 @@
         thead{
             border: 1px solid red;
         }
+        img{
+            width: 50px;
+        }
+        tr{
+            margin: 5px 0;
+            border: 1px solid gray;
+            text-align: center;
+
+        }
     </style>
 </head>
 <body>
@@ -161,7 +170,7 @@ function displayData(data){
         let tr = document.createElement("tr") 
 
         let sn = document.createElement("td") 
-        let coverImage= document.createElement("td")
+        let coverImage= document.createElement("img")
         let name= document.createElement("td")
         let author= document.createElement("td")
         let genre= document.createElement("td")
@@ -193,7 +202,7 @@ function displayData(data){
                     }).then(res=> alert("Deleted succesfully"))
                         .catch(err=>console.log(err))
             })
-            tr.append(name,author,genre,edition,publisher,cost,edit,dlt)
+            tr.append(sn,coverImage, name,author,genre,edition,publisher,cost,edit,dlt)
             document.querySelector("tbody").append(tr) ;
         
 
