@@ -169,16 +169,7 @@
             <tbody>
               <!-- Append your data here  -->
               <tr>
-                <th>1</th>
-                <th>CoverImage</th>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Edition</th>
-                <th>Publisher</th>
-                <th>Cost</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                
               </tr>
             </tbody>
           </table>
@@ -273,12 +264,16 @@ function displayData(data){
             dlt.innerText = "Delete"
             dlt.addEventListener("click" , ()=>{
                 console.log("delete")
+
                     fetch("https://mockapi-yx28.onrender.com/book/"+ele.id , {
                         method:"DELETE"
-                    }).then(res=> alert("Deleted succesfully"))
-                        .catch(err=>console.log(err))
+                    })
+                    .then(res=> {
 
+                        alert("Deleted succesfully")
                         location.reload()
+                    })
+                    .catch(err=>console.log(err))
             })
             tr.append(sn,coverImage, name,author,genre,edition,publisher,cost,edit,dlt)
             document.querySelector("tbody").append(tr) ;
