@@ -26,9 +26,42 @@
             height: 100%;
             width: 50%;
         }
+        .nav{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: teal;
+            color: coral;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+            font-size: 20px;
+            border: 1px solid red;
+            padding: 5px;
+        }
+        a:hover{
+            color: white;
+            background-color: coral;
+        }
+        #filterDiv ,#sortDiv{
+            margin: auto;
+            width: 20%;
+        }
+        #filter ,#sort{
+            padding: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+
+    <div class="nav">
+        <h1>MASAI  LIBRARY </h1>
+        <a href="allUserBook.html">Borrowed books</a>
+        <a href="index.html">HOME</a>
+    </div>
+
     <div  id="filterDiv">
         <select name="" id="filter">
             <option value="">filter</option>
@@ -54,7 +87,7 @@
 
 <script>
     let allBookData;
-    fetch("http://localhost:3000/book")
+    fetch("https://mockapi-yx28.onrender.com/book")
     .then(res =>res.json())
     .then(data=>{
             allBookData = data
@@ -71,24 +104,30 @@
             console.log(ele)
             let childDiv = document.createElement("div") ;
             let divIn = document.createElement("div") ;
-
+            
             let img = document.createElement("img") ;
-            let name = document.createElement("h2") ;
-            let author = document.createElement("p") ;
-            let genre = document.createElement("p") ;
-            let edition = document.createElement("p") ;
-            let publisher = document.createElement("p") ;
-            let cost = document.createElement("p") ;
-            let borrow = document.createElement("button") ;
+            img.src =ele.image_url ;
 
-            img.src =ele.image_url,
-            name.innerText =+ele.book_name,
-            author.innerText = "author:"+ele.author,
-            genre.innerText = "Genre:"+ele.genre,
-            edition.innerText ="Edition:"+ ele.edition,
-            publisher.innerText = "Edition:" + ele.publisher,
+            let name = document.createElement("h2") ;
+            name.innerText =ele.book_name ;
+
+            let author = document.createElement("p") ;
+            author.innerText = "author:"+ele.author ;
+
+            let genre = document.createElement("p") ;
+            genre.innerText = "Genre:"+ele.genre ;
+
+            let edition = document.createElement("p") ;
+            edition.innerText ="Edition:"+ ele.edition ;
+            
+            let publisher = document.createElement("p") ;
+            publisher.innerText = "Publisher:" + ele.publisher ;
+
+            let cost = document.createElement("p") ;
             cost.innerText ="Cost:"+ele.cost
-            borrow.innerText = "Borrow"
+
+            let borrow = document.createElement("button") ;
+            borrow.innerText = "Borrow" ;
             borrow.addEventListener("click" , ()=>{
                 localStorage.setItem("book" , JSON.stringify(ele));
                 location.href = "show.html"
