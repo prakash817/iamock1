@@ -89,8 +89,6 @@ console.log(ele.image_url)
         let edition= document.createElement("td")
         let publisher= document.createElement("td")
         let cost= document.createElement("td")
-        let edit = document.createElement("td")
-        let dlt = document.createElement("td")
 
         coverImage.src= ele.image_url,
 
@@ -101,21 +99,11 @@ console.log(ele.image_url)
             edition.innerText=ele.edition,
             publisher.innerText=ele.publisher,
             cost.innerText=ele.cost
-            edit.innerText = "Edit" ;
-            edit.addEventListener("click" , ()=>{
-                console.log("edit")
-            })
+           
 
 
-            dlt.innerText = "Delete"
-            dlt.addEventListener("click" , ()=>{
-                console.log("delete")
-                    fetch("http://localhost:3000/book/"+ele.id , {
-                        method:"DELETE"
-                    }).then(res=> alert("Deleted succesfully"))
-                        .catch(err=>console.log(err))
-            })
-            tr.append(sn,coverImage,name,author,genre,edition,publisher,cost,edit,dlt)
+           
+            tr.append(sn,coverImage,name,author,genre,edition,publisher,cost)
             document.querySelector("tbody").append(tr) ;
         
 
