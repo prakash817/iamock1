@@ -76,14 +76,14 @@
 
     function displayData(data){
     document.querySelector("tbody").innerHTML = "" ;
-
+        let count = 1; 
     data.map(ele=>{
         let tr = document.createElement("tr") 
 console.log(ele.image_url)
 
 
         let sn = document.createElement("td") 
-        sn.innerText = ele.id;
+        sn.innerText = count++;
 
 
         let coverImage= document.createElement("img")
@@ -94,7 +94,7 @@ console.log(ele.image_url)
         let publisher= document.createElement("td")
         let cost= document.createElement("td")
 
-        coverImage.src= ele.image_url,
+          coverImage.src= ele.image_url,
 
 
             name.innerText=ele.book_name,
