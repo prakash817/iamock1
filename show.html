@@ -93,10 +93,15 @@
             confirm.addEventListener("click" , ()=>{
                 let confirmData = JSON.parse(localStorage.getItem("confirm")) || [] ;
                 console.log(confirmData , "cconfirm")
-                confirmData.push(ele)
+                let al = confirmData.filter(e=>e.name == ele.name);
+                if(al.length == 0){
+                    confirmData.push(ele)
+                }else{
+                    alert("Already Added")
+                }
                 localStorage.setItem("confirm" , JSON.stringify(confirmData)) ;
 
-                fetch("http://localhost:3000/book/"+ele.id , {
+                fetch("https://mockapi-yx28.onrender.com/book/"+ele.id , {
                     method:"PATCH",
                     headers:{'Content-Type': 'application/json'},
                     body:JSON.stringify({"borrowed":true})
