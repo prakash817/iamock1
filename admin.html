@@ -41,8 +41,8 @@
     </h1>
 
     <form action="" id="form">
-        <input type="text" placeholder="Enter name of book" name="name" >
-        <input type="text" placeholder="Enter name of book author" name="author" >
+        <input type="text" id="name" placeholder="Enter name of book" name="name" >
+        <input type="text" id="author" placeholder="Enter name of book author" name="author" >
             <select name="" id="genre">
                 <option value="science">Science</option>
                 <option value="fiction">Fiction</option>
@@ -57,8 +57,9 @@
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
             </select>
-            <input type="text" name="" id="publisher" placeholder="enter publisher name">
-            <input type="number" name="" id="cost" placeholder="enter cost ">
+
+            <input type="text"   id="publisher" name="" id="publisher" placeholder="enter publisher name">
+            <input type="number" id="cost" name="" id="cost" placeholder="enter cost ">
             <input type="submit" value="submit">
         </form>
 
@@ -101,54 +102,101 @@
 
 
 <script>
+    // let bookData ;
 
-let form = document.getElementById("form")
-form.addEventListener("submit",(e)=>{
-    e.preventDefault() ;
-    let newBook = {
-        "image_url": "https://m.media-amazon.com/images/I/5165He67NEL.jpg",
-        "book_name": form.name.value ,
-        "author": form.author.value,
-		"genre": document.getElementById("genre").value,
-		"edition": document.getElementById("edition").value,
-		"publisher": form.publisher.value,
-		"cost": form.cost.value,
-		"borrowed": false,
+    //     fetch("http://localhost:3000/book")
+    //     .then(res=> res.json())
+    //     .then(data=> bookData = data)
+    //     .catch(err=>console.log(err))
+        
+        document.getElementById("form").addEventListener("submit",(e)=>{
+            e.preventDefault() ;
+            let newBook = {
+                "image_url": "https://m.media-amazon.com/images/I/5165He67NEL.jpg",
+                "book_name": document.getElementById("name").value ,
+                "author": document.getElementById("author").value,
+                "genre": document.getElementById("genre").value,
+                "edition": document.getElementById("edition").value,
+                "publisher": document.getElementById("publisher").value,
+                "cost": document.getElementById("cost").value,
+                "borrowed": false,
 
-    } 
+            } 
 
-    fetch(" http://localhost:3000/book" , {
+    fetch("http://localhost:3000/book" , {
         method:"POST",
         headers:{'Content-Type': 'application/json'},
         body:JSON.stringify(newBook)
        })
         .then(token=> alert("posted succesfully"))
         .catch(err=>console.log(err))
-    console.log(newBook)
+         console.log(newBook)
 })
 
 
 
 //fetching json data
 let data = [];
-function fetch(){
-    fetch(" http://localhost:3000/book" )
-    .then(res=>res,json())
-    .then(data=>{
-        data = data
-        displayData(data)
-        }
-    ) ;
 
+x()
+
+function x(){
+  
+    // console.log("hello")
+    fetch("http://localhost:3000/book")
+    .then(r=> r.json())
+    .then(data =>{
+            data = data
+            displayData(data)
+        } 
+    )
+    .catch(err=>console.log(err))
 }
 
-// fetch()
 
 function displayData(data){
     document.querySelector("tbody").innerHTML = "" ;
 
     data.map(ele=>{
-        let tr = document.createElement("tr")
+        let tr = document.createElement("tr") 
+
+        let sn = document.createElement("td") 
+        let coverImage= document.createElement("td")
+        let name= document.createElement("td")
+        let author= document.createElement("td")
+        let genre= document.createElement("td")
+        let edition= document.createElement("td")
+        let publisher= document.createElement("td")
+        let cost= document.createElement("td")
+        let edit = document.createElement("td")
+        let dlt = document.createElement("td")
+
+            sn.innerText = ele.id;
+            coverImage.src= ele.image_url,
+            name.innerText=ele.book_name,
+            author.innerText=ele.author,
+            genre.innerText=ele.genre,
+            edition.innerText=ele.edition,
+            publisher.innerText=ele.publisher,
+            cost.innerText=ele.cost
+            edit.innerText = "Edit" ;
+            edit.addEventListener("click" , ()=>{
+                console.log("edit")
+            })
+
+
+            dlt.innerText = "Delete"
+            dlt.addEventListener("click" , ()=>{
+                console.log("delete")
+                    fetch("http://localhost:3000/book/"+ele.id , {
+                        method:"DELETE"
+                    }).then(res=> alert("Deleted succesfully"))
+                        .catch(err=>console.log(err))
+            })
+            tr.append(name,author,genre,edition,publisher,cost,edit,dlt)
+            document.querySelector("tbody").append(tr) ;
+        
+
     })
 }
 

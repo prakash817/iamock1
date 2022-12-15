@@ -1,23 +1,25 @@
 {
   "book": [
     {
-      "name": "rich dad poor dad",
-      "auther": "hk",
-      "genre": "history",
-      "edition": "2020",
-      "publisher": "kanha",
-      "id": 2
-    },
-    {
       "image_url": "https://m.media-amazon.com/images/I/5165He67NEL.jpg",
-      "book_name": "rich dad poor dad",
-      "author": "kh",
-      "genre": "fiction",
-      "edition": "2020",
-      "publisher": "aldh",
-      "cost": "18",
+      "book_name": "prakash kumar gupta",
+      "author": "",
+      "genre": "science",
+      "edition": "",
+      "publisher": "",
+      "cost": "",
       "borrowed": false,
-      "id": 3
+      "id": 1
+    },{
+      "image_url": "https://m.media-amazon.com/images/I/5165He67NEL.jpg",
+      "book_name": "prakash kumar gupta",
+      "author": "kanha",
+      "genre": "science",
+      "edition": "2020",
+      "publisher": "",
+      "cost": "270",
+      "borrowed": false,
+      "id": 2
     }
   ]
 }
